@@ -28,5 +28,66 @@ class dataUtils{
             }
         });
     }
+
+
+  createCardTemplate = (cardName, listId) => {
+
+    return cy.request({
+        method: "POST",
+        url: "https://api.trello.com/1/cards",
+        qs: {
+            name: cardName,
+            idList: listId,
+            key: APIKey,
+            token: APIToken
+        }
+    }).then((response) => {
+
+        const cardId = response.body.id;
+
+        return cy.request({
+            method: "PUT",
+            url: `https://api.trello.com/1/cards/${cardId}`,
+            qs: {
+                key: APIKey,
+                token: APIToken,
+                isTemplate: true
+            }
+        }).then((templateResponse) => {
+
+            return templateResponse;
+
+        });
+
+    });
+
+}
+
+
+    getCard = (cardId) => {
+        return cy.request({
+            method: "GET",
+            url: `https://api.trello.com/1/cards/${cardId}`,
+            qs: {
+                key: APIKey,
+                token: APIToken
+            }
+        });
+    }
+
+
+    updateCardName = (cardId, newName) => {
+        return cy.request({
+            method: "PUT",
+            url: `https://api.trello.com/1/cards/${cardId}`,
+            qs: {
+                key: APIKey,
+                token: APIToken,
+                name: newName
+            }
+        });
+    }
+
+
 }
 export default dataUtils
