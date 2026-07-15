@@ -32,6 +32,11 @@ before(() => {
 Given("user is on the Trello board page", () => {
   SharedActions.openBoard(boardUrl);
   cy.url().should('eq', boardUrl);
+    cy.wait(3000);
+
+  cy.screenshot("board-before-delete", {
+    capture: "fullPage"
+  });
 });
 
 When("user clicks on the card to open it", () => {
@@ -57,6 +62,11 @@ When("user clicks the delete option for the card", () => {
 
 Then("the card should be deleted successfully", () => {
   deleteCardAssertion.assertCardDeletedByName(cardName);
+    cy.wait(2000);
+
+  cy.screenshot("board-after-delete", {
+    capture: "fullPage"
+  });
 });
 
 after(() => {
