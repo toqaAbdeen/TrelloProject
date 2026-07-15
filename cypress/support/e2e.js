@@ -14,5 +14,21 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-Cypress.on('uncaught:exception', (err) => {   if (err.message.includes('unauthorized permission requested')) {     return false;    } });
+import './commands';
+
+Cypress.on('uncaught:exception', (err) => {
+  const message = err.message || '';
+
+  const ignoredPatterns = [
+    'unauthorized permission requested',
+    'API::Unauthorized',
+    'postMessage',
+    'as.atlassian.com',
+    'unauthorized',
+  ];
+
+  // ignore all known Trello/Atlassian noise
+  return !ignoredPatterns.some(pattern =>
+    message.includes(pattern)
+  );
+});

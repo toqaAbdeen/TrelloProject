@@ -41,3 +41,38 @@ Cypress.Commands.add('loginToTrello',() => {
  Cypress.Commands.add('findByTestId',(testId) => { 
      cy.get(`[data-testid=${testId}]`)
  })
+
+
+import dataUtils from "../support/dataUtils.cy";
+
+const dataUtil = new dataUtils();
+
+Cypress.Commands.add("createTrelloTestBoard", (boardName, cardName) => {
+  let boardUrl;
+  console.log("CREATED CARD: ", cardName);
+  let boardId;
+  let cardId;
+  let listId;
+
+  return cy.loginToTrello().then(() => {
+    return dataUtil.createBoard(boardName);
+  }).then((response) => {
+    boardUrl = response.body.url;
+    boardId = response.body.id;
+
+    return dataUtil.getListsOnBoard(boardId);
+  }).then((listResponse) => {
+    listId = listResponse.body[0].id;
+
+    return dataUtil.createCard(cardName, listId);
+  }).then((cardResponse) => {
+    cardId = cardResponse.body.id;
+
+    return {
+      boardUrl,
+      boardId,
+      cardId,
+      listId
+    };
+  });
+});

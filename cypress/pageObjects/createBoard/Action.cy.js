@@ -5,7 +5,7 @@ clickOnCreateButtonInNavbar(){
     return this
 }
 chooseBoardOption(){
-    cy.findByTestId("header-create-board-button").click()
+    cy.findByTestId("create-board-button").click()
     return this
 }
 
