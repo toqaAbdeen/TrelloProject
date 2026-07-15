@@ -18,6 +18,11 @@ class sharedActions{
     return this;
   }
 
+  makeCardTemplate() {
+    cy.contains('span', 'Make template').click();
+    return this;
+  }
+
 }
 
 export default sharedActions
