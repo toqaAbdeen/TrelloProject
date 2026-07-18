@@ -1,31 +1,11 @@
 class CardActions {
-
-    
-
-
  addLabel(labelName) {
 
-    // Open Labels
-    cy.get(".Qa0qCr_1_yQKR9.ybVBgfOiuWZJtD.mUpWqmjL4CZBvn")
-        .eq(1)
-        .click();
+    cy.get(".Qa0qCr_1_yQKR9.ybVBgfOiuWZJtD.mUpWqmjL4CZBvn").eq(1).click();
 
-
-    // Click Create a new label
-    cy.contains("button", "Create a new label")
-        .should("be.visible")
-        .click();
-
-
-    // Type label name
-    cy.get("#edit-label-title-input")
-        .should("be.visible")
-        .type(labelName);
-
-
-    // Choose random color
-    cy.get('button[data-testid^="color-tile"]')
-        .should("have.length.greaterThan", 0)
+    cy.contains("button", "Create a new label").should("be.visible").click();
+    cy.get("#edit-label-title-input").should("be.visible").type(labelName);
+    cy.get('button[data-testid^="color-tile"]').should("have.length.greaterThan", 0)
         .then(($buttons) => {
 
             const randomIndex = Cypress._.random(
@@ -39,19 +19,16 @@ class CardActions {
 
         });
 
-        cy.wait(3000); // Wait for 1 second to ensure the color selection is registered
+        cy.wait(3000);
 
-    // Save label
-//    cy.contains("button", "Create a new label").click();
-cy.get(".ybVBgfOiuWZJtD.orotyyeYQx_tso").eq(1).click();
-
+        cy.get(".dJTS3FCwC6Plhw").find("button").click();
 }
 
 
 
     addDescription(description){
 
-        cy.get(".nch-icon.hChYpzFshATQo8.GzZMAuibTh5l1i").click();
+        cy.get(".nch-icon.hChYpzFshATQo8.GzZMAuibTh5l1i").last().click();   
         cy.get('[data-testid="description-button"]').type(description);
 
     }
@@ -68,17 +45,6 @@ cy.get(".ybVBgfOiuWZJtD.orotyyeYQx_tso").eq(1).click();
 
     }
 
-
-
-    openCardMenu(){
-
-        cy.contains("button","Menu").click();
-
-    }
-
-
-
-    
 
 }
 

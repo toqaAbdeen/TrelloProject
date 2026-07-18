@@ -77,7 +77,7 @@ When("user enter the card details", () => {
 
 When("click menu option for the card", () => {
 
-    cardActions.openCardMenu();
+    SharedActions.clickOnMenuOption();
 
 });
 
