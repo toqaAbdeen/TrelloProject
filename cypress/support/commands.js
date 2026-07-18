@@ -27,7 +27,7 @@
 Cypress.Commands.add('loginToTrello',() => { 
     cy.visit("/login")
     cy.wait(3000)
-    cy.fixture("trelloUser").then((data)=>{
+   return cy.fixture("trelloUser").then((data) => {
     cy.findByTestId("username").type(data.email)
     cy.findByTestId("login-submit-idf-testid").click()
     cy.wait(3000)
